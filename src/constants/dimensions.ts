@@ -8,8 +8,11 @@ export default {
     large: 32,
   },
   borderRadius: {
+    tiny: 3,
     small: 6,
     default: 10,
     big: 15,
+    large: 25,
+    huge: 35,
   },
 };
