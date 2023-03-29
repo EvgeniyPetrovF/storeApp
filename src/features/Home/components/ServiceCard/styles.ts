@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors, dimensions} from '../../../../constants';
+import {colors, dimensions, text} from '../../../../constants';
 import {serviceCardWidth} from '../ServicesList';
 
 export const styles = StyleSheet.create({
@@ -28,5 +28,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  footer: {},
+  title: {
+    fontWeight: text.weight.normal,
+  },
+  price: {
+    fontWeight: text.weight.bold,
+    fontSize: text.size.big,
+  },
 });

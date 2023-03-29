@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {View} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import TextWrapper from '../../../../components/TextWrapper';
 import {styles} from './styles';
 
@@ -9,8 +8,7 @@ type Props = {
   subTitle?: string;
   price: string;
   priceComment?: string;
-  iconImage?: string;
-  warning?: string;
+  icon?: JSX.Element;
   currency: string;
 };
 
@@ -19,8 +17,7 @@ const ServiceCard: FC<Props> = ({
   subTitle,
   price,
   priceComment,
-  iconImage,
-  warning,
+  icon,
   currency,
 }) => {
   return (
@@ -28,13 +25,13 @@ const ServiceCard: FC<Props> = ({
       <View style={styles.wrapper}>
         <View style={styles.header}>
           <View>
-            <TextWrapper>{title ?? 'Title'}</TextWrapper>
+            <TextWrapper style={styles.title}>{title ?? 'Title'}</TextWrapper>
             {subTitle && <TextWrapper>{subTitle}</TextWrapper>}
           </View>
-          <TextWrapper>Icon</TextWrapper>
+          {icon}
         </View>
-        <View style={styles.footer}>
-          <TextWrapper>
+        <View>
+          <TextWrapper style={styles.price}>
             {price ?? 'Price'}
             {currency}
           </TextWrapper>

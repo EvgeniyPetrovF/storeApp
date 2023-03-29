@@ -4,27 +4,16 @@ import CarsAPI from '../../../services/API/Cars';
 
 const useListItems = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const [listItems, setListItems] = useState<ICar[]>([]);
 
-  const fetchListItems = async (): Promise<any> => {
+  const fetchListItems = async () => {
     try {
       const response = await CarsAPI.getCars();
       setListItems(response);
+      return response;
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const refreshListItems = async () => {
-    setIsRefreshing(true);
-    const storedItems = await fetchListItems();
-
-    if (storedItems?.length) {
-      setListItems(storedItems);
-    }
-
-    setIsRefreshing(false);
   };
 
   const initialFetchDryCleaners = async () => {
@@ -42,10 +31,7 @@ const useListItems = () => {
 
   return {
     isLoading,
-    isRefreshing,
     listItems,
-
-    refreshListItems,
   };
 };
 
