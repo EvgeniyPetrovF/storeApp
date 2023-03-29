@@ -34,4 +34,9 @@ export const styles = StyleSheet.create({
     margin: dimensions.offset.small,
   },
   columnWrapper: {justifyContent: 'space-between'},
+  maintenanceItems: {fontSize: text.size.default},
+  fuelToFill: {
+    alignSelf: 'flex-end',
+    color: colors.gray,
+  },
 });
