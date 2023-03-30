@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import {Dimensions, FlatList, ListRenderItem, View} from 'react-native';
 import * as Progress from 'react-native-progress';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
   GasStation,
   GasStationFilled,
@@ -10,11 +11,14 @@ import {
 } from '../../../../assets/images/svg-icons';
 import TextWrapper from '../../../../components/TextWrapper';
 import {colors} from '../../../../constants';
+import {StackParamList} from '../../../../models/navigation';
 import {ICar, IService} from '../../../../models/types';
 import useServices from '../../hooks/useServices';
 import LargeServiceCard from '../LargeServiceCard';
+import MapView from '../MapView';
 import ServiceCard from '../ServiceCard';
 import {styles} from './styles';
+
 export const serviceCardWidth = Dimensions.get('window').width * 0.45;
 
 const ListEmptyComponent: FC = () => {
@@ -33,11 +37,32 @@ const getItemLayout = (_: unknown, index: number) => {
   };
 };
 
-const ServicesList: FC<ICar> = ({services, currency, id}) => {
+const ServicesList: FC<ICar> = ({
+  services,
+  currency,
+  id,
+  street,
+  house,
+  coordinates,
+  itemsToFix,
+  amountOfFuel,
+  fuelCapacity,
+}) => {
   const {servicesList, isRefreshing, refreshServices} = useServices({
     services,
     carId: id,
   });
+
+  const {navigate} = useNavigation<NavigationProp<StackParamList>>();
+  const navigateToDetails = () => {
+    navigate('Details', {id});
+  };
+
+  const renderFooter = () => {
+    const carAddress = [street, house].join(', ');
+
+    return <MapView address={carAddress} coordinates={coordinates} />;
+  };
 
   const renderItem: ListRenderItem<IService> = ({item}) => {
     switch (item.serviceType) {
@@ -48,16 +73,18 @@ const ServicesList: FC<ICar> = ({services, currency, id}) => {
             currency={currency}
             bgColors={['white', '#f1fbff']}
             warningText="Мало топлива"
-            icon={<GasStation width="30" height="30" />}>
+            icon={
+              <GasStation width="30" height="30" onPress={navigateToDetails} />
+            }>
             <View>
               <Progress.Bar
-                progress={item.amountOfFuel / item.fuelCapacity}
+                progress={amountOfFuel / fuelCapacity}
                 color={colors.midGray}
                 unfilledColor={colors.athensGray}
                 borderWidth={0}
               />
               <TextWrapper style={styles.fuelToFill}>
-                + {item.fuelCapacity - item.amountOfFuel} л
+                + {fuelCapacity - amountOfFuel} л
               </TextWrapper>
             </View>
           </LargeServiceCard>
@@ -69,9 +96,10 @@ const ServicesList: FC<ICar> = ({services, currency, id}) => {
             currency={currency}
             bgColors={['#fdfffc', '#f9fef6']}
             warningText="Через 937 км"
+            onPress={navigateToDetails}
             icon={<Repair width="30" height="30" />}>
             <TextWrapper style={styles.maintenanceItems} numberOfLines={2}>
-              {item.items.join(', ')}
+              {itemsToFix.join(', ')}
             </TextWrapper>
           </LargeServiceCard>
         );
@@ -79,6 +107,7 @@ const ServicesList: FC<ICar> = ({services, currency, id}) => {
         return (
           <ServiceCard
             {...item}
+            onPress={navigateToDetails}
             currency={currency}
             icon={<SecurityCamera fill={colors.lightBlue} />}
           />
@@ -87,6 +116,7 @@ const ServicesList: FC<ICar> = ({services, currency, id}) => {
         return (
           <ServiceCard
             {...item}
+            onPress={navigateToDetails}
             currency={currency}
             icon={<ParkingSpot fill={colors.lightGreen} />}
           />
@@ -95,12 +125,19 @@ const ServicesList: FC<ICar> = ({services, currency, id}) => {
         return (
           <ServiceCard
             {...item}
+            onPress={navigateToDetails}
             currency={currency}
             icon={<GasStationFilled fill={colors.lightPurple} />}
           />
         );
       default:
-        return <ServiceCard {...item} currency={currency} />;
+        return (
+          <ServiceCard
+            {...item}
+            currency={currency}
+            onPress={navigateToDetails}
+          />
+        );
     }
   };
 
@@ -117,6 +154,7 @@ const ServicesList: FC<ICar> = ({services, currency, id}) => {
       removeClippedSubviews
       getItemLayout={getItemLayout}
       numColumns={2}
+      ListFooterComponent={renderFooter}
     />
   );
 };

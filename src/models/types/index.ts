@@ -19,7 +19,12 @@ export interface ICar {
   model: string;
   subscriptionTillDate: string;
   licensePlateNumber: string;
-  address: string;
+  street: string;
+  house: string;
   currency: string;
   services: IService[];
+  coordinates: [number, number];
+  itemsToFix: string[];
+  amountOfFuel: number;
+  fuelCapacity: number;
 }

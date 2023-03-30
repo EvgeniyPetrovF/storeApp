@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
   },
   tabBarContainer: {
     alignItems: 'center',
+    marginBottom: dimensions.offset.small,
   },
   bottomOffset: {
     marginBottom: dimensions.offset.normal,
