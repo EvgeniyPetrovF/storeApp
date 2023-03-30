@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import TextWrapper from '../../../../components/TextWrapper';
 import {styles} from './styles';
 
@@ -10,6 +10,7 @@ type Props = {
   priceComment?: string;
   icon?: JSX.Element;
   currency: string;
+  onPress?: () => void;
 };
 
 const ServiceCard: FC<Props> = ({
@@ -19,9 +20,10 @@ const ServiceCard: FC<Props> = ({
   priceComment,
   icon,
   currency,
+  onPress,
 }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.wrapper}>
         <View style={styles.header}>
           <View>
@@ -38,7 +40,7 @@ const ServiceCard: FC<Props> = ({
           <TextWrapper>{priceComment ?? 'Price comment'}</TextWrapper>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

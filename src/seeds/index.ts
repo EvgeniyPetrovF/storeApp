@@ -5,10 +5,14 @@ export const cars: ICar[] = [
     id: 0,
     model: 'Genesis G70',
     subscriptionTillDate: '2022-07-14',
-    licensePlateNumber: 'K 332 MB 777',
+    licensePlateNumber: 'K 689 MB 456',
     street: 'ул. Рубинштейна',
     house: '22к4',
     currency: '₽',
+    coordinates: [45.050752, 39.002244],
+    amountOfFuel: 20,
+    fuelCapacity: 80,
+    itemsToFix: ['Масло ДВС', 'фильтры'],
     services: [
       {
         id: 0,
@@ -17,15 +21,12 @@ export const cars: ICar[] = [
         serviceType: 'fuel',
         price: '3325',
         priceComment: '~45 мин',
-        amountOfFuel: 20,
-        fuelCapacity: 80,
       },
       {
         id: 1,
         title: 'Техобслуживание',
         serviceType: 'maintenance',
         price: '27200',
-        items: ['Масло ДВС', 'фильтры'],
         priceComment: '~6 ч',
       },
       {
@@ -59,9 +60,13 @@ export const cars: ICar[] = [
     model: 'Nissan Skyline R34',
     subscriptionTillDate: '2022-10-11',
     licensePlateNumber: 'K 456 MB 123',
-    street: 'ул. Рубинштейна',
-    house: '22к4',
+    street: 'ул. Ленина',
+    house: '111',
     currency: '₽',
+    coordinates: [40.050752, 39.002244],
+    amountOfFuel: 30,
+    fuelCapacity: 110,
+    itemsToFix: ['Гидравлический фазоинвертор', 'циклический прото-излучатель'],
     services: [
       {
         id: 0,
@@ -70,15 +75,12 @@ export const cars: ICar[] = [
         serviceType: 'fuel',
         price: '1234',
         priceComment: '~34 мин',
-        amountOfFuel: 30,
-        fuelCapacity: 110,
       },
       {
         id: 1,
         title: 'Техобслуживание',
         serviceType: 'maintenance',
         price: '55666',
-        items: ['Гидравлический фазоинвертор', 'циклический прото-излучатель'],
         priceComment: '~6 ч',
       },
       {
@@ -113,8 +115,12 @@ export const cars: ICar[] = [
     subscriptionTillDate: '2022-10-11',
     licensePlateNumber: 'K 456 MB 123',
     street: 'ул. Рубинштейна',
-    house: '22к4',
+    house: '256',
+    coordinates: [40.050752, 37.002244],
     currency: '₽',
+    amountOfFuel: 50,
+    fuelCapacity: 80,
+    itemsToFix: ['Карбюратор', 'Моногидратор'],
     services: [
       {
         id: 0,
@@ -123,15 +129,12 @@ export const cars: ICar[] = [
         serviceType: 'fuel',
         price: '1234',
         priceComment: '~34 мин',
-        amountOfFuel: 50,
-        fuelCapacity: 80,
       },
       {
         id: 1,
         title: 'Техобслуживание',
         serviceType: 'maintenance',
         price: '55666',
-        items: ['Карбюратор', 'Моногидратор'],
         priceComment: '~6 ч',
       },
       {
@@ -168,6 +171,10 @@ export const cars: ICar[] = [
     street: 'ул. Мира',
     house: '12',
     currency: '₽',
+    coordinates: [48.050752, 50.002244],
+    amountOfFuel: 70,
+    fuelCapacity: 80,
+    itemsToFix: ['Иконы', 'четки на удачу'],
     services: [
       {
         id: 0,
@@ -176,15 +183,12 @@ export const cars: ICar[] = [
         serviceType: 'fuel',
         price: '1234',
         priceComment: '~34 мин',
-        amountOfFuel: 70,
-        fuelCapacity: 80,
       },
       {
         id: 1,
         title: 'Техобслуживание',
         serviceType: 'maintenance',
         price: '55666',
-        items: ['Иконы', 'четки на удачу'],
         priceComment: '~6 ч',
       },
       {
@@ -221,6 +225,10 @@ export const cars: ICar[] = [
     street: 'ул. Пушкина',
     house: 'Колотушкина',
     currency: '₽',
+    coordinates: [30.050752, 60.002244],
+    amountOfFuel: 10,
+    fuelCapacity: 80,
+    itemsToFix: ['Гидравлический фазоинвертор', 'циклический прото-излучатель'],
     services: [
       {
         id: 0,
@@ -229,15 +237,12 @@ export const cars: ICar[] = [
         serviceType: 'fuel',
         price: '1234',
         priceComment: '~34 мин',
-        amountOfFuel: 10,
-        fuelCapacity: 80,
       },
       {
         id: 1,
         title: 'Техобслуживание',
         serviceType: 'maintenance',
         price: '75757',
-        items: ['Гидравлический фазоинвертор', 'циклический прото-излучатель'],
         priceComment: '~6 ч',
       },
       {

@@ -8,7 +8,7 @@ import {styles} from './styles';
 type Props = NativeStackScreenProps<StackParamList, 'Details'>;
 
 const DetailsScreen: FC<Props> = ({route}) => {
-  const {item} = route.params;
+  const {id} = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
