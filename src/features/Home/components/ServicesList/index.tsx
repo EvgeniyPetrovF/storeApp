@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useCallback} from 'react';
 import {Dimensions, FlatList, ListRenderItem, View} from 'react-native';
 import * as Progress from 'react-native-progress';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -58,11 +58,10 @@ const ServicesList: FC<ICar> = ({
     navigate('Details', {id});
   };
 
-  const renderFooter = () => {
-    const carAddress = [street, house].join(', ');
-
+  const carAddress = [street, house].join(', ');
+  const renderMap = useCallback(() => {
     return <MapView address={carAddress} coordinates={coordinates} />;
-  };
+  }, [carAddress, coordinates]);
 
   const renderItem: ListRenderItem<IService> = ({item}) => {
     switch (item.serviceType) {
@@ -71,11 +70,10 @@ const ServicesList: FC<ICar> = ({
           <LargeServiceCard
             {...item}
             currency={currency}
-            bgColors={['white', '#f1fbff']}
+            bgColors={bgColors}
             warningText="Мало топлива"
-            icon={
-              <GasStation width="30" height="30" onPress={navigateToDetails} />
-            }>
+            onPress={navigateToDetails}
+            icon={<GasStation width="30" height="30" />}>
             <View>
               <Progress.Bar
                 progress={amountOfFuel / fuelCapacity}
@@ -131,13 +129,7 @@ const ServicesList: FC<ICar> = ({
           />
         );
       default:
-        return (
-          <ServiceCard
-            {...item}
-            currency={currency}
-            onPress={navigateToDetails}
-          />
-        );
+        return <ServiceCard {...item} currency={currency} />;
     }
   };
 
@@ -151,12 +143,13 @@ const ServicesList: FC<ICar> = ({
       refreshing={isRefreshing}
       ListEmptyComponent={ListEmptyComponent}
       keyExtractor={keyExtractor}
-      removeClippedSubviews
       getItemLayout={getItemLayout}
       numColumns={2}
-      ListFooterComponent={renderFooter}
+      ListHeaderComponent={renderMap}
     />
   );
 };
 
 export default ServicesList;
+
+const bgColors = ['white', '#f1fbff'];
