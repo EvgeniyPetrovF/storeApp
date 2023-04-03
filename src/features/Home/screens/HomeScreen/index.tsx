@@ -75,7 +75,6 @@ const HomeScreen: FC<Props> = () => {
             renderTabBar={renderTabBar}
             onIndexChange={setIndex}
             initialLayout={initialLayout}
-            lazy
           />
         </Animated.View>
       )}

@@ -1,9 +1,8 @@
-import React, {FC, useRef} from 'react';
+import React, {FC} from 'react';
 import {View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MapboxGL from '@rnmapbox/maps';
 import TextWrapper from '../../../../components/TextWrapper';
-import useCamera from '../../hooks/useCamera';
 import {styles} from './styles';
 
 type Props = {
@@ -12,20 +11,15 @@ type Props = {
 };
 
 const MapView: FC<Props> = ({address, coordinates}) => {
-  const mapRef = useRef<MapboxGL.MapView>(null);
-  const {cameraRef} = useCamera(coordinates);
-
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
         <MapboxGL.MapView
           logoEnabled={false}
-          ref={mapRef}
           scaleBarEnabled={false}
           style={styles.map}
           styleURL={MapboxGL.StyleURL.TrafficNight}>
           <MapboxGL.Camera
-            ref={cameraRef}
             centerCoordinate={coordinates}
             zoomLevel={10}
             animationDuration={0}
@@ -40,12 +34,12 @@ const MapView: FC<Props> = ({address, coordinates}) => {
               />
             </MapboxGL.PointAnnotation>
           )}
-          {address && (
-            <View style={styles.street}>
-              <TextWrapper style={styles.streetText}>{address}</TextWrapper>
-            </View>
-          )}
         </MapboxGL.MapView>
+        {address && (
+          <View style={styles.street}>
+            <TextWrapper style={styles.streetText}>{address}</TextWrapper>
+          </View>
+        )}
       </View>
     </View>
   );

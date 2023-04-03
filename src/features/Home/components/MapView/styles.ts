@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     padding: dimensions.offset.small,
     position: 'absolute',
     top: dimensions.offset.tiny,
-    left: dimensions.offset.small,
+    left: dimensions.offset.normalPlus,
   },
   streetText: {
     color: colors.darkGray,
