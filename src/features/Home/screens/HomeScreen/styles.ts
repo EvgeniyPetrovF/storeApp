@@ -6,7 +6,6 @@ const windowWidth = Dimensions.get('window').width;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: dimensions.offset.normal,
   },
   listContainer: {
     flex: 1,
