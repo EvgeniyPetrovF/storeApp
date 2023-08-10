@@ -4,6 +4,7 @@ export default {
   transparentBlack: 'rgba(28,26,47, 0.4)',
   white: '#FFFFFF',
   gray: '#D2D2D6',
+  darkGray: '#767C84',
   athensGray: '#C7CDD7',
   midGray: '#758398',
   yellow: '#FFCF87',

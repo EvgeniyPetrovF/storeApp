@@ -6,7 +6,6 @@ const windowWidth = Dimensions.get('window').width;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: dimensions.offset.normal,
   },
   listContainer: {
     flex: 1,
@@ -30,6 +29,7 @@ export const styles = StyleSheet.create({
   },
   tabBarContainer: {
     alignItems: 'center',
+    marginBottom: dimensions.offset.small,
   },
   bottomOffset: {
     marginBottom: dimensions.offset.normal,

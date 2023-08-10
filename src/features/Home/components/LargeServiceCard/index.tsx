@@ -1,5 +1,5 @@
 import React, {FC, PropsWithChildren} from 'react';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import TextWrapper from '../../../../components/TextWrapper';
 import {styles} from './styles';
@@ -13,6 +13,7 @@ type Props = {
   icon?: JSX.Element;
   warningText?: string;
   currency: string;
+  onPress?: () => void;
 };
 
 const LargeServiceCard: FC<PropsWithChildren<Props>> = ({
@@ -25,12 +26,13 @@ const LargeServiceCard: FC<PropsWithChildren<Props>> = ({
   bgColors,
   currency,
   children,
+  onPress,
 }) => {
   return (
-    <View style={[styles.container, styles.shadow]}>
-      <LinearGradient
-        colors={bgColors ?? ['#E5EBF1', '#D8E1EA']}
-        style={styles.wrapper}>
+    <TouchableOpacity
+      style={[styles.container, styles.shadow]}
+      onPress={onPress}>
+      <LinearGradient colors={bgColors} style={styles.wrapper}>
         <View>
           <View style={[styles.header, styles.bottomOffset]}>
             <TextWrapper style={styles.title}>{title ?? 'Title'}</TextWrapper>
@@ -60,7 +62,7 @@ const LargeServiceCard: FC<PropsWithChildren<Props>> = ({
           )}
         </View>
       </LinearGradient>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -15,6 +15,7 @@ import {ICar} from '../../../../models/types';
 import CarHeader from '../../components/CarHeader';
 import useAnimatedList from '../../hooks/useAnimatedList';
 import useListItems from '../../hooks/useListItems';
+import useMapboxInit from '../../hooks/useMapboxInit';
 import useTabView from '../../hooks/useTabView';
 import {styles} from './styles';
 
@@ -46,7 +47,6 @@ const renderTabBar = ({
         subscriptionTillDate={subscriptionTillDate}
         style={styles.bottomOffset}
       />
-
       <PaginationProgress count={routes.length} current={index} />
     </View>
   );
@@ -57,6 +57,8 @@ const HomeScreen: FC<Props> = () => {
 
   const {navigationState, renderScene, setIndex, initialLayout} =
     useTabView(listItems);
+
+  useMapboxInit();
 
   const {animatedOpacityStyle} = useAnimatedList({isLoading});
 
@@ -73,7 +75,6 @@ const HomeScreen: FC<Props> = () => {
             renderTabBar={renderTabBar}
             onIndexChange={setIndex}
             initialLayout={initialLayout}
-            lazy
           />
         </Animated.View>
       )}
