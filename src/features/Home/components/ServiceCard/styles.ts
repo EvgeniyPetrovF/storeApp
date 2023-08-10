@@ -1,19 +1,20 @@
 import {StyleSheet} from 'react-native';
 import {colors, dimensions, text} from '../../../../constants';
+import {serviceCardWidth} from '../ServicesList';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    width: serviceCardWidth,
+    aspectRatio: 1,
   },
-  cardContainer: {
+  wrapper: {
     flex: 1,
-    width: '100%',
-    padding: dimensions.offset.normal,
-  },
-  shadow: {
-    borderRadius: dimensions.borderRadius.big,
+    aspectRatio: 1,
+    justifyContent: 'space-between',
     backgroundColor: colors.white,
+    padding: dimensions.offset.normal,
+    shadowColor: colors.black,
+    borderRadius: dimensions.borderRadius.big,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -21,26 +22,17 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    shadowColor: colors.black,
   },
-  separator: {
-    marginVertical: dimensions.offset.small,
-  },
-  listContainer: {
-    padding: dimensions.offset.normal,
-  },
-  carHeader: {
-    flex: 1,
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  servicesHeader: {
-    marginVertical: dimensions.offset.tiny,
-    fontSize: text.size.middle,
-    fontWeight: text.weight.medium,
+  title: {
+    fontWeight: text.weight.normal,
   },
-  carModel: {
+  price: {
+    fontWeight: text.weight.bold,
     fontSize: text.size.big,
   },
 });

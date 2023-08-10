@@ -1,64 +1,66 @@
-import React, {FC, useCallback} from 'react';
-import {
-  FlatList,
-  ListRenderItem,
-  SafeAreaView,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {FC} from 'react';
+import {SafeAreaView, View} from 'react-native';
 import Animated from 'react-native-reanimated';
+import {
+  NavigationState,
+  SceneRendererProps,
+  TabView,
+} from 'react-native-tab-view';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Loader from '../../../../components/Loader';
+import PaginationProgress from '../../../../components/PaginationProgress';
 import TextWrapper from '../../../../components/TextWrapper';
 import {StackParamList} from '../../../../models/navigation';
+import {ICar} from '../../../../models/types';
+import CarHeader from '../../components/CarHeader';
 import useAnimatedList from '../../hooks/useAnimatedList';
 import useListItems from '../../hooks/useListItems';
+import useMapboxInit from '../../hooks/useMapboxInit';
+import useTabView from '../../hooks/useTabView';
 import {styles} from './styles';
 
-const ListEmptyComponent: FC = () => {
-  return <TextWrapper>No items</TextWrapper>;
-};
-
-const keyExtractor = (item: any) => {
-  return `${item.id}`;
-};
-
-const ItemSeparatorComponent: FC = () => {
-  return <View style={styles.separator} />;
-};
-
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
+type State = NavigationState<
+  ICar & {
+    key: string;
+  }
+>;
 
-const HomeScreen: FC<Props> = ({navigation}) => {
-  const {
-    isLoading,
-    isRefreshing,
-    dryCleaners,
+const ListHeaderComponent: FC = () => {
+  return (
+    <View style={styles.headerContainer}>
+      <TextWrapper>T E S</TextWrapper>
+    </View>
+  );
+};
 
-    refreshDryCleaners,
-  } = useListItems();
+const renderTabBar = ({
+  navigationState: {routes, index},
+}: SceneRendererProps & {navigationState: State}) => {
+  const {model, subscriptionTillDate, licensePlateNumber} = routes[index];
+
+  return (
+    <View style={styles.tabBarContainer}>
+      <CarHeader
+        model={model}
+        licensePlateNumber={licensePlateNumber}
+        subscriptionTillDate={subscriptionTillDate}
+        style={styles.bottomOffset}
+      />
+      <PaginationProgress count={routes.length} current={index} />
+    </View>
+  );
+};
+
+const HomeScreen: FC<Props> = () => {
+  const {isLoading, listItems} = useListItems();
+
+  const {navigationState, renderScene, setIndex, initialLayout} =
+    useTabView(listItems);
+
+  useMapboxInit();
 
   const {animatedOpacityStyle} = useAnimatedList({isLoading});
-
-  const renderDryCleaner: ListRenderItem<any> = ({item}) => {
-    const navigateToTweet = () => {
-      navigation.navigate('Details', {item});
-    };
-
-    return (
-      <TouchableOpacity onPress={navigateToTweet}>
-        <View {...item} />
-      </TouchableOpacity>
-    );
-  };
-
-  const ListHeaderComponent: FC = useCallback(() => {
-    return (
-      <View style={styles.headerContainer}>
-        <TextWrapper>Title</TextWrapper>
-      </View>
-    );
-  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -66,16 +68,13 @@ const HomeScreen: FC<Props> = ({navigation}) => {
         <Loader />
       ) : (
         <Animated.View style={[animatedOpacityStyle, styles.listContainer]}>
-          <FlatList
-            data={dryCleaners}
-            renderItem={renderDryCleaner}
-            onRefresh={refreshDryCleaners}
-            refreshing={isRefreshing}
-            ListHeaderComponent={ListHeaderComponent}
-            ItemSeparatorComponent={ItemSeparatorComponent}
-            ListEmptyComponent={ListEmptyComponent}
-            keyExtractor={keyExtractor}
-            removeClippedSubviews
+          <ListHeaderComponent />
+          <TabView
+            navigationState={navigationState}
+            renderScene={renderScene}
+            renderTabBar={renderTabBar}
+            onIndexChange={setIndex}
+            initialLayout={initialLayout}
           />
         </Animated.View>
       )}

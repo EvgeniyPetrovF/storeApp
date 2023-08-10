@@ -1,15 +1,18 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {colors, dimensions, text} from '../../../../constants';
+
+const windowWidth = Dimensions.get('window').width;
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    paddingHorizontal: dimensions.offset.normal,
   },
   listContainer: {
+    flex: 1,
     marginVertical: dimensions.offset.normal,
-    width: '100%',
+  },
+  listItemContainer: {
+    width: windowWidth,
   },
   listHeader: {
     fontSize: text.size.big,
@@ -23,6 +26,12 @@ export const styles = StyleSheet.create({
   },
   headerContainer: {
     alignItems: 'center',
+  },
+  tabBarContainer: {
+    alignItems: 'center',
+    marginBottom: dimensions.offset.small,
+  },
+  bottomOffset: {
     marginBottom: dimensions.offset.normal,
   },
 });
